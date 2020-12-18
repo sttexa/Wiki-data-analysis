@@ -1,0 +1,156 @@
+select {
+  margin:10px;
+  width:200px;
+  height:30px;
+}
+
+#sub,#titlesubmit,#individualsearch,#individualsub,#authorSubmit{
+  margin:10px;
+  width:150px;
+  height:30px;
+  font-size:13px;
+  background-color:
+}
+
+#main,#individualCharts {
+  margin: 10px;
+  width: 1000px;
+  height:500px;
+  
+}
+
+#chartLabel{
+    font-size:14px;
+}
+
+#cat{
+    font-size:13px;
+}
+
+table {
+   border: collapse; 
+   border-spacing: 0;
+   width: 98%;
+   margin:10px;
+   float:left;
+}
+
+table tbody td{
+   border-top: 1pt solid ;   
+   line-height: 2em;
+   vertical-align: middle;
+   padding: 0.5em 0.75em;
+}
+table thead th {
+/*    background-color:darkslateblue;*/
+    color:black;
+    font-family: "Lucida Sans";
+    text-align: center;
+    padding: 0.25em 0.75em; 
+    line-height: 2em;
+    font-size:14px;
+}
+table thead {
+   background-color:aliceblue;
+}
+
+table tbody td{
+   text-align: center;
+   padding: 0.5em 0em;   
+}
+
+#startDrawTable{
+    float:right;
+    margin-right:20px;
+    height:30px;
+    width:300px;
+    
+}
+
+#tableline{
+    margin-top:10px;
+    margin-right:20px;
+}
+
+#tableline h4{
+    margin-top: 30px; 
+    margin-bottom: 0px;
+}
+
+.mainTitle, .inputButton{
+    margin-left:10px;
+}
+
+#chooseArticle{
+    width:98%;
+}
+
+.timestramp{
+    margin-left:10px;
+    margin-right:10px;
+    
+}
+
+.red{
+    color: #00A0E9;
+}
+
+.titles{
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    margin: 0 auto;
+    flost:left;
+    margin-left:70px;
+}
+
+.titles p, .titles label{
+	font-size: 17px;
+}
+
+.top, .bottom{
+	float:left;
+	width:50%;
+}
+
+.inputButton{
+	float:left;
+	width:100%;
+}
+
+.choosetitlenumber{
+	width:100%;
+	float:left;
+}
+
+#individualchoose{
+	width:100%;
+	flost:left;
+}
+
+.individualtable{
+	width:90%
+}
+
+#individualselectuser,#yearSelection{
+	width:100%;
+	flost:left;
+}
+
+#individualChartLabel{
+	flost:left;	
+	margin-top:10px;
+}
+
+#individualcat{
+	flost:left;	
+}
+
+#userPart{
+	flost:left;	
+}
+
+#selectuserlabel{
+	flost:left;
+}
+
