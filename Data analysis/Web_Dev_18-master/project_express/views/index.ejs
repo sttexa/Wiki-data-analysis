@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Data Analytics Web Application</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/_all-skins.css">
+    <link rel="stylesheet" href="css/all.css" type="text/css">
+    <link rel="stylesheet" href="js/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/charts.css"/>
+    <link rel="stylesheet" href="css/individual.css" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
+<div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
+    <img src="img/ajax-loader.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
+</div>
+<div class="wrapper">
+        
+    <!--top header-->
+    <header class="main-header">
+        <a href="#" target="_blank" class="logo">
+            <span class="logo-lg"> Main </span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a class="sidebar-toggle">
+            </a><span class="index_top"><strong>Data Analytics Web Application</strong></span>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">Logout</span>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="/logout"><i class="ace-icon fa fa-power-off"></i>Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+        
+    <!--Left menu bar-->
+    <div class="main-sidebar">
+        <div class="sidebar">
+            <form action="#" method="get" class="sidebar-form"></form>
+            <ul class="sidebar-menu" id="sidebar-menu">
+                <li class="treeview active">
+                    <a href="#" id="menu1"><i class="fa fa-desktop"></i><span>Overall Analytics</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu"></ul>
+                </li>
+                <li class="treeview">
+                    <a href="#" id="menu2"><i class="fa fa-desktop"></i><span>Individual Article Analytics</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu"></ul>
+                </li>
+                <li class="treeview">
+                    <a id="menu3"><i class="fa fa-desktop"></i><span>Author Analytics</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu"></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+        
+    <!--main part-->
+    <div id="content-wrapper" class="content-wrapper">
+            
+        <!-- iframe main-->
+        <div class="content-iframe" style="overflow: scroll;">
+            <div class="mainContent" id="content-main" style="margin: 10px; margin-bottom: 0px; padding: 0;">
+                    
+                <!-- overall part-->
+                
+                <div id="overall" class="div_find">
+                    <h3 class="mainTitle"> Overall Analytics</h3>
+                    <br>
+                    <div class="titles">
+                        <div class="top">
+                            <p>The titles of articles with highest number of revisions: </p>
+                            <p id="top_articles" class="red"></p>
+                        </div>
+                        <div class="bottom">
+                            <p>The titles of articles with lowest number of revisions: </p>
+                            <p id="bottom_articles" class="red"></p>
+                        </div>
+                        <p class="choosetitlenumber">
+                            <label for="num">Input the number of articles' titles to show: </label>
+                            <input class="find_input" type="text" name="num" id="num" value="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                            <button class="find_but" id="titlesubmit" type="submit" onclick="ischeckNum(),updatehigh(),updatelow()">Submit</button>
+                            <br>
+                        </p>
+                            
+                        <div class="largest">
+                            <p> The article edited by largest group of registered users:</p>
+                            <p id="editedlargest_articles" class="red"></p>
+                        </div>
+                        <div class="smallest">
+                            <p> The article edited by smallest group of registered users:</p>
+                            <p id="editedsmallest_articles" class="red"></p>
+                        </div>
+                            
+                        <div class="longest">
+                            <p> The top 2 articles with the longest history (measured by age):</p>
+                            <p id="longest_history_articles" class="red"></p>
+                        </div>
+                        <div class="shortest">
+                            <p> The Article with the shortest history (measured by age):</p>
+                            <p id="shortest_history_articles" class="red"></p>
+                        </div>
+                    <p>
+                        <br>
+                        <label class="find_labela">Chart type:</label>
+                        <select id="cat" class="find_input" name="category">
+                            <option value=1>Bar Chart</option>
+                            <option value=2>Pie Chart</option>
+                        </select>
+                        <button class="find_but" id="sub" type="submit">Submit</button>
+                    </p>
+                    </div>
+                </div>
+                <div id="main"></div>
+                    
+                <!-- individual part-->
+                <div id="individual" class="div_find">
+                    <h3 class="mainTitle"> Individual Analytics</h3>
+                    <br>
+                    
+                    <div class="titles">
+                        <select id="chooseArticle" class="autocomplete" onchange="selectTitle()"></select>
+                        <input class="find_input" id = "inputTitle" type="text" onchange="selectTitle2()" placeholder="Type title here...">
+                        <input class="find_but" id="individualsearch" type="button" onclick="inputTitle()" value="Search">
+                        
+                        <div id="chooseYear">
+                            <label>From: </label>
+                            <select id="chooseYearFrom" onchange="inputTitleYear()" ></select>
+                            <label>to: </label>
+                            <select id="chooseYearTo" onchange="inputTitleYear()" ></select>
+                        </div>
+                        
+                        <!-- <select id="chooseYear" onchange="inputTitleYear()"></select> -->
+
+                        <h5 id="title"></h5>
+                        <h5 id="total"></h5>
+                        <h5 id="update"></h5>
+                        <table class="individualtable">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>revision number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userRevisionTableBody"></tbody>
+                        </table>
+                        <p>
+                            <br>
+                            <div id="individualselectuser">
+                                <label id="individualChartLabel" class="find_label">Select chart type and user(s):</label>
+                                <select id="individualcat" class="find_input" name="category">
+                                    <option value=1>Bar Chart</option>
+                                    <option value=2>Pie Chart</option>
+                                    <option value=3>Top User(s) Chart</option>
+                                </select>
+                        
+                                <div id="userPart" style="display: none">
+                                    <select id="selectUser" multiple size="5"></select>
+                                </div>
+
+                                <button class="find_but" id="individualsub" type="submit">Show Chart</button>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <div id="individualCharts"></div>
+                
+                
+                    
+                <!-- author part-->
+                <div id="author" class="div_find">
+                    <h3 class="mainTitle"> Author Analytics</h3>
+                    <br>
+                    <div class="titles">
+                    <p class="inputButton">
+                        <!--<select id="chooseAuthor" class="autocomplete" ></select>-->
+                        <input type="text" placeholder="Please input..." class="find_input" id="find_input">
+                        <button class="find_but" id="authorSubmit" type="submit">Submit</button>
+                    </p>
+                    <div  style="height:1500px;">
+                        <table id="authorTable" class="individualtable">
+                            <thead>
+                            <tr>
+                                <th>Article</th>
+                                <th>Times</th>
+                                <th>Timestamp</th>
+                            </tr>
+                            </thead>
+                            <tbody>                           
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+            
+    </div>
+</div>
+    
+<script src="js/jQuery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+<script  type="text/javascript" src="/js/author.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/individual.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+</body>
+</html>
